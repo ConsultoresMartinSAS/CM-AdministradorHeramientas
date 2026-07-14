@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!doctype html>
+<html lang="es"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CM Compliance Suite · Consultores Martín S.A.S.</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -600,7 +599,7 @@
 
 <body>
 
-  <section class="login-view" id="loginView">
+  <section class="login-view" id="loginView" style="display: flex;">
     <div class="login-card">
       <img src="Logo.png" class="logo-login" alt="Consultores Martín S.A.S.">
 
@@ -614,25 +613,13 @@
       <form class="login-form" id="loginForm">
         <div class="form-group">
           <label for="loginEmail">Correo electrónico</label>
-          <input
-            id="loginEmail"
-            class="login-input"
-            type="email"
-            autocomplete="username"
-            placeholder="usuario@consultoresmartin.com"
-            required>
+          <input id="loginEmail" class="login-input" type="email" autocomplete="username" placeholder="usuario@consultoresmartin.com" required="">
         </div>
 
         <div class="form-group">
           <label for="loginPassword">Contraseña</label>
           <div class="password-row">
-            <input
-              id="loginPassword"
-              class="login-input"
-              type="password"
-              autocomplete="current-password"
-              placeholder="Ingrese su contraseña"
-              required>
+            <input id="loginPassword" class="login-input" type="password" autocomplete="current-password" placeholder="Ingrese su contraseña" required="">
             <button class="mini-btn" type="button" onclick="togglePassword('loginPassword', this)">Ver</button>
           </div>
         </div>
@@ -655,13 +642,7 @@
         <div class="form-group">
           <label for="newPassword">Nueva contraseña</label>
           <div class="password-row">
-            <input
-              id="newPassword"
-              class="login-input"
-              type="password"
-              autocomplete="new-password"
-              placeholder="Mínimo 12 caracteres"
-              required>
+            <input id="newPassword" class="login-input" type="password" autocomplete="new-password" placeholder="Mínimo 12 caracteres" required="">
             <button class="mini-btn" type="button" onclick="togglePassword('newPassword', this)">Ver</button>
           </div>
         </div>
@@ -679,13 +660,7 @@
 
         <div class="form-group">
           <label for="forgotEmail">Correo electrónico</label>
-          <input
-            id="forgotEmail"
-            class="login-input"
-            type="email"
-            autocomplete="username"
-            placeholder="usuario@consultoresmartin.com"
-            required>
+          <input id="forgotEmail" class="login-input" type="email" autocomplete="username" placeholder="usuario@consultoresmartin.com" required="">
         </div>
 
         <button class="btn-primary" type="submit">
@@ -702,25 +677,13 @@
 
         <div class="form-group">
           <label for="forgotCode">Código recibido</label>
-          <input
-            id="forgotCode"
-            class="login-input"
-            type="text"
-            autocomplete="one-time-code"
-            placeholder="Código de verificación"
-            required>
+          <input id="forgotCode" class="login-input" type="text" autocomplete="one-time-code" placeholder="Código de verificación" required="">
         </div>
 
         <div class="form-group">
           <label for="forgotNewPassword">Nueva contraseña</label>
           <div class="password-row">
-            <input
-              id="forgotNewPassword"
-              class="login-input"
-              type="password"
-              autocomplete="new-password"
-              placeholder="Ingrese la nueva contraseña"
-              required>
+            <input id="forgotNewPassword" class="login-input" type="password" autocomplete="new-password" placeholder="Ingrese la nueva contraseña" required="">
             <button class="mini-btn" type="button" onclick="togglePassword('forgotNewPassword', this)">Ver</button>
           </div>
         </div>
@@ -742,7 +705,7 @@
     </div>
   </section>
 
-  <section class="suite-view" id="suiteView">
+  <section class="suite-view" id="suiteView" style="display: none;">
 
     <header>
       <div class="brand">
@@ -856,7 +819,8 @@
         tags: ["SAGRILAFT", "PTEE"],
         buttons: [
           { label: "Ingresar al panel", url: "https://admin-vinculacion.consultoresmartin.com", type: "primary" },
-          { label: "Diligenciar formulario", url: "https://vinculacion.consultoresmartin.com", type: "secondary" }
+          { label: "Diligenciar formulario", url: "https://vinculacion.consultoresmartin.com", type: "secondary" },
+          { label: "Formulario de debida diligencia", url: "https://debidadiligencia.consultoresmartin.com", type: "secondary" }
         ]
       },
       {
@@ -1165,7 +1129,8 @@
         const formulariosPublicos = new Set([
           "pregel.consultoresmartin.com",
           "vinculacion.consultoresmartin.com",
-          "lineaetica.consultoresmartin.com"
+          "lineaetica.consultoresmartin.com",
+          "debidadiligencia.consultoresmartin.com"
         ]);
 
         if (formulariosPublicos.has(url.hostname)) {
@@ -1535,5 +1500,6 @@ function logoutSuite(){
     initAuth();
   </script>
 
-</body>
-</html>
+
+
+</body><div id="codex-browser-sidebar-comments-root" style="position: fixed; inset: 0px; pointer-events: none; z-index: 2147483647;"></div></html>
