@@ -1,0 +1,1601 @@
+<!doctype html>
+<html lang="es"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CM Compliance Suite · Consultores Martín S.A.S.</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --azul:#19313B;
+      --salmon:#CB896C;
+      --petalo:#F4E9E2;
+      --gris:#6B7A82;
+      --borde:#E8CFC2;
+      --blanco:#FFFFFF;
+      --verde:#15824B;
+      --rojo:#B42318;
+      --sombra:0 25px 70px rgba(25,49,59,.12);
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+      font-family:'Raleway',sans-serif;
+    }
+
+    body{
+      min-height:100vh;
+      background:linear-gradient(120deg,#fff 0%,#fbf5f1 100%);
+      color:var(--azul);
+    }
+
+    .login-view{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px 20px;
+    }
+
+    .login-card{
+      width:100%;
+      max-width:430px;
+      background:white;
+      border:1px solid var(--borde);
+      border-radius:22px;
+      padding:34px 30px 38px;
+      box-shadow:var(--sombra);
+    }
+
+    .logo-login{
+      display:block;
+      width:120px;
+      margin:0 auto 18px;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--azul);
+      color:white;
+      border-radius:999px;
+      padding:8px 17px;
+      font-size:12px;
+      font-weight:800;
+      margin-bottom:14px;
+    }
+
+    h1{
+      font-size:27px;
+      font-weight:800;
+      margin-bottom:8px;
+    }
+
+    .text{
+      color:var(--gris);
+      line-height:1.55;
+      font-size:14px;
+      margin-bottom:25px;
+    }
+
+    .btn-primary,
+    .btn-secondary{
+      width:100%;
+      border:0;
+      cursor:pointer;
+      font-weight:800;
+      border-radius:12px;
+      min-height:48px;
+      padding:12px 16px;
+      transition:.2s ease;
+      font-family:'Raleway',sans-serif;
+      font-size:14px;
+      text-decoration:none;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+    }
+
+    .btn-primary{
+      background:var(--azul);
+      color:white;
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-1px);
+      box-shadow:0 12px 25px rgba(25,49,59,.22);
+    }
+
+    .btn-secondary{
+      margin-top:10px;
+      background:var(--petalo);
+      color:var(--azul);
+      border:1px solid var(--borde);
+    }
+
+    .small-note{
+      margin-top:18px;
+      font-size:12px;
+      color:var(--gris);
+      line-height:1.45;
+    }
+
+    .auth-message{
+      display:none;
+      margin-top:16px;
+      border-radius:12px;
+      padding:12px 14px;
+      font-size:13px;
+      line-height:1.45;
+    }
+
+    .auth-message.error{
+      display:block;
+      background:#fff1f0;
+      color:var(--rojo);
+      border:1px solid #f2c2bd;
+    }
+
+    .auth-message.info{
+      display:block;
+      background:#eef7f1;
+      color:var(--verde);
+      border:1px solid #b7dfc5;
+    }
+
+    .suite-view{
+      display:none;
+      min-height:100vh;
+    }
+
+    header{
+      background:#fff;
+      border-bottom:1px solid var(--borde);
+      padding:22px 34px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:18px;
+    }
+
+    .brand img{
+      width:78px;
+      height:auto;
+      object-fit:contain;
+    }
+
+    .brand h2{
+      font-size:27px;
+      font-weight:800;
+      letter-spacing:.3px;
+    }
+
+    .brand p{
+      font-size:14px;
+      color:var(--gris);
+      margin-top:4px;
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .nav-pill{
+      background:var(--azul);
+      color:#fff;
+      padding:10px 16px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .user-pill{
+      background:var(--petalo);
+      color:var(--azul);
+      border:1px solid var(--borde);
+      padding:10px 16px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+      max-width:270px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .logout{
+      background:var(--petalo);
+      color:var(--azul);
+      border:1px solid var(--borde);
+      padding:0 22px;
+      height:46px;
+      cursor:pointer;
+      font-weight:800;
+      border-radius:12px;
+      font-family:'Raleway',sans-serif;
+    }
+
+    main{
+      max-width:1260px;
+      margin:0 auto;
+      padding:30px 32px 50px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.5fr 1fr;
+      gap:24px;
+      margin-bottom:24px;
+    }
+
+    .hero,
+    .note{
+      background:#fff;
+      border:1px solid var(--borde);
+      border-radius:24px;
+      padding:30px;
+      box-shadow:0 16px 45px rgba(25,49,59,.06);
+    }
+
+    .hero{
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      width:150px;
+      height:150px;
+      border-radius:50%;
+      background:var(--petalo);
+      right:-45px;
+      top:-45px;
+    }
+
+    .hero h1{
+      font-size:34px;
+      margin-top:8px;
+      position:relative;
+      z-index:1;
+    }
+
+    .note{
+      background:var(--petalo);
+      border-left:5px solid var(--salmon);
+      color:var(--azul);
+      line-height:1.55;
+    }
+
+    .quick-access{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+      margin-bottom:26px;
+    }
+
+    .quick-card{
+      background:#fff;
+      border:1px solid var(--borde);
+      border-radius:18px;
+      padding:22px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:18px;
+    }
+
+    .quick-card span{
+      display:block;
+      color:var(--gris);
+      font-size:12px;
+      font-weight:800;
+      margin-bottom:8px;
+      text-transform:uppercase;
+    }
+
+    .quick-card strong{
+      font-size:24px;
+      font-weight:800;
+    }
+
+    .quick-card p{
+      color:var(--gris);
+      font-size:13px;
+      margin-top:6px;
+      line-height:1.4;
+    }
+
+    .tools-shell{
+      background:#fff;
+      border:1px solid var(--borde);
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:var(--sombra);
+    }
+
+    .section-title{
+      background:var(--azul);
+      color:white;
+      padding:18px 24px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+    }
+
+    .section-title h3{
+      font-size:18px;
+      font-weight:800;
+    }
+
+    .section-title span{
+      font-size:13px;
+    }
+
+    .tools-grid{
+      padding:26px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:22px;
+    }
+
+    .tool-card{
+      border:1px solid var(--borde);
+      border-radius:20px;
+      padding:24px;
+      min-height:360px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      background:linear-gradient(180deg,#fff 0%,#fffaf7 100%);
+      transition:.2s ease;
+    }
+
+    .tool-card:hover{
+      transform:translateY(-5px);
+      box-shadow:0 20px 45px rgba(25,49,59,.12);
+      border-color:var(--salmon);
+    }
+
+    .tool-image{
+      width:100%;
+      height:105px;
+      border-radius:16px;
+      background:var(--petalo);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:18px;
+      overflow:hidden;
+      border:1px solid rgba(203,137,108,.25);
+    }
+
+    .tool-symbol{
+      font-size:40px;
+      font-weight:800;
+      color:var(--azul);
+    }
+
+    .tool-card h4{
+      font-size:19px;
+      font-weight:800;
+      margin-bottom:10px;
+    }
+
+    .tool-card p{
+      color:var(--gris);
+      font-size:14px;
+      line-height:1.45;
+      margin-bottom:18px;
+    }
+
+    .tool-meta{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+
+    .tag{
+      background:var(--petalo);
+      color:var(--azul);
+      border-radius:999px;
+      padding:7px 11px;
+      font-size:11px;
+      font-weight:800;
+    }
+
+    .buttons{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+    }
+
+    .enter-btn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-decoration:none;
+      background:var(--azul);
+      color:white;
+      border-radius:12px;
+      min-height:44px;
+      padding:12px;
+      font-size:13px;
+      font-weight:800;
+      text-align:center;
+    }
+
+    .enter-btn.secondary{
+      background:var(--petalo);
+      color:var(--azul);
+      border:1px solid var(--borde);
+    }
+
+    /* Tarjeta ancha (ocupa dos columnas) */
+    .tool-card.wide{ grid-column:span 2; }
+    .tool-card.wide .buttons{ grid-template-columns:repeat(2,1fr); }
+
+    /* Botón con descripción pequeña */
+    .enter-btn.has-desc{ flex-direction:column; gap:2px; padding:10px 12px; }
+    .enter-btn .btn-label{ font-weight:800; }
+    .enter-btn .btn-desc{ font-size:11px; font-weight:500; line-height:1.25; opacity:.85; }
+
+    .disabled{
+      opacity:.72;
+    }
+
+    .disabled .enter-btn{
+      background:#9AA5AA;
+      pointer-events:none;
+      color:white;
+      border:0;
+    }
+
+    footer{
+      text-align:center;
+      color:var(--gris);
+      font-size:12px;
+      padding:24px;
+    }
+
+    @media(max-width:1100px){
+      .tools-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .hero-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media(max-width:720px){
+      header{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .brand h2{
+        font-size:22px;
+      }
+
+      main{
+        padding:24px 18px 40px;
+      }
+
+      .tools-grid,
+      .quick-access{
+        grid-template-columns:1fr;
+      }
+    }
+
+    .login-form{
+      display:grid;
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .form-group{
+      display:grid;
+      gap:7px;
+    }
+
+    .form-group label{
+      font-size:13px;
+      font-weight:800;
+      color:var(--azul);
+    }
+
+    .login-input{
+      width:100%;
+      min-height:48px;
+      border:1px solid var(--borde);
+      border-radius:12px;
+      padding:12px 14px;
+      font-family:'Raleway',sans-serif;
+      font-size:14px;
+      color:var(--azul);
+      background:#fff;
+      outline:none;
+      transition:.2s ease;
+    }
+
+    .login-input:focus{
+      border-color:var(--salmon);
+      box-shadow:0 0 0 4px rgba(203,137,108,.13);
+    }
+
+    .login-helper{
+      border:0;
+      background:transparent;
+      color:var(--salmon);
+      font-weight:800;
+      font-family:'Raleway',sans-serif;
+      font-size:13px;
+      cursor:pointer;
+      text-align:left;
+      padding:0;
+      margin-top:2px;
+    }
+
+    .login-helper:hover{
+      color:var(--azul);
+      text-decoration:underline;
+    }
+
+    .password-row{
+      display:flex;
+      gap:8px;
+      align-items:center;
+    }
+
+    .password-row .login-input{
+      flex:1;
+    }
+
+    .mini-btn{
+      min-height:48px;
+      border:1px solid var(--borde);
+      background:var(--petalo);
+      color:var(--azul);
+      border-radius:12px;
+      padding:0 14px;
+      cursor:pointer;
+      font-weight:800;
+      font-family:'Raleway',sans-serif;
+      font-size:12px;
+    }
+
+    .login-divider{
+      height:1px;
+      background:var(--borde);
+      margin:6px 0;
+    }
+
+    .hidden{
+      display:none !important;
+    }
+
+  </style>
+  <!-- Favicon -->
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="shortcut icon" href="favicon-32.png">
+
+<meta name="theme-color" content="#173843">
+<meta name="application-name" content="Consultores Martín S.A.S.">
+<meta name="apple-mobile-web-app-title" content="Consultores Martín">
+<meta name="msapplication-TileColor" content="#173843">
+
+</head>
+
+<body>
+
+  <section class="login-view" id="loginView" style="display: flex;">
+    <div class="login-card">
+      <img src="Logo.png" class="logo-login" alt="Consultores Martín S.A.S.">
+
+      <span class="pill">Acceso seguro</span>
+
+      <h1>CM Compliance Suite</h1>
+      <p class="text">
+        Ingrese con su correo corporativo para acceder a la suite administrativa.
+      </p>
+
+      <form class="login-form" id="loginForm">
+        <div class="form-group">
+          <label for="loginEmail">Correo electrónico</label>
+          <input id="loginEmail" class="login-input" type="email" autocomplete="username" placeholder="usuario@consultoresmartin.com" required="">
+        </div>
+
+        <div class="form-group">
+          <label for="loginPassword">Contraseña</label>
+          <div class="password-row">
+            <input id="loginPassword" class="login-input" type="password" autocomplete="current-password" placeholder="Ingrese su contraseña" required="">
+            <button class="mini-btn" type="button" onclick="togglePassword('loginPassword', this)">Ver</button>
+          </div>
+        </div>
+
+        <button class="btn-primary" type="submit" id="loginButton">
+          Ingresar
+        </button>
+
+        <button class="login-helper" type="button" onclick="showForgotPassword()">
+          ¿Olvidó su contraseña?
+        </button>
+      </form>
+
+      <form class="login-form hidden" id="newPasswordForm">
+        <div class="login-divider"></div>
+        <p class="text" style="margin-bottom:0;">
+          Por seguridad, debe crear una nueva contraseña para activar su cuenta.
+        </p>
+
+        <div class="form-group">
+          <label for="newPassword">Nueva contraseña</label>
+          <div class="password-row">
+            <input id="newPassword" class="login-input" type="password" autocomplete="new-password" placeholder="Mínimo 12 caracteres" required="">
+            <button class="mini-btn" type="button" onclick="togglePassword('newPassword', this)">Ver</button>
+          </div>
+        </div>
+
+        <button class="btn-primary" type="submit" id="newPasswordButton">
+          Guardar nueva contraseña
+        </button>
+      </form>
+
+      <form class="login-form hidden" id="forgotPasswordForm">
+        <div class="login-divider"></div>
+        <p class="text" style="margin-bottom:0;">
+          Ingrese su correo para recibir el código de recuperación.
+        </p>
+
+        <div class="form-group">
+          <label for="forgotEmail">Correo electrónico</label>
+          <input id="forgotEmail" class="login-input" type="email" autocomplete="username" placeholder="usuario@consultoresmartin.com" required="">
+        </div>
+
+        <button class="btn-primary" type="submit">
+          Enviar código
+        </button>
+
+        <button class="login-helper" type="button" onclick="showLoginForm()">
+          Volver al inicio de sesión
+        </button>
+      </form>
+
+      <form class="login-form hidden" id="confirmForgotPasswordForm">
+        <div class="login-divider"></div>
+
+        <div class="form-group">
+          <label for="forgotCode">Código recibido</label>
+          <input id="forgotCode" class="login-input" type="text" autocomplete="one-time-code" placeholder="Código de verificación" required="">
+        </div>
+
+        <div class="form-group">
+          <label for="forgotNewPassword">Nueva contraseña</label>
+          <div class="password-row">
+            <input id="forgotNewPassword" class="login-input" type="password" autocomplete="new-password" placeholder="Ingrese la nueva contraseña" required="">
+            <button class="mini-btn" type="button" onclick="togglePassword('forgotNewPassword', this)">Ver</button>
+          </div>
+        </div>
+
+        <button class="btn-primary" type="submit">
+          Cambiar contraseña
+        </button>
+      </form>
+
+      <button class="btn-secondary" type="button" onclick="clearLocalSession()">
+        Limpiar sesión local
+      </button>
+
+      <div id="authMessage" class="auth-message"></div>
+
+      <p class="small-note">
+        Acceso centralizado, seguro y confidencial para herramientas de cumplimiento, debida diligencia, Línea Ética, SAGRILAFT, PTEE y gestión documental.
+      </p>
+    </div>
+  </section>
+
+  <section class="suite-view" id="suiteView" style="display: none;">
+
+    <header>
+      <div class="brand">
+        <img src="Logo.png" alt="Consultores Martín S.A.S.">
+        <div>
+          <h2>CONSULTORES MARTÍN S.A.S.</h2>
+          <p>Suite corporativa de herramientas de cumplimiento, debida diligencia y gestión documental</p>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <span class="nav-pill">SAGRILAFT</span>
+        <span class="nav-pill">PTEE</span>
+        <span class="nav-pill">HABEAS DATA</span>
+        <span class="user-pill" id="userIdentity">Usuario autenticado</span>
+        <button class="logout" onclick="logoutSuite()">Cerrar sesión</button>
+      </div>
+    </header>
+
+    <main>
+
+      <section class="hero-grid">
+        <div class="hero">
+          <span class="pill">Prevención, antes que materialización</span>
+          <h1>Centro de herramientas corporativas</h1>
+          <p class="text">
+            Accede desde un solo lugar a los paneles administrativos, formularios, consultas en listas,
+            gestión de contrapartes, línea ética, scoring de riesgo y nuevas herramientas de la suite.
+          </p>
+        </div>
+
+        <div class="note">
+          <strong>Nota:</strong> El acceso a esta suite está restringido a usuarios autorizados. La consulta,
+          descarga y gestión de información debe realizarse bajo criterios de confidencialidad, necesidad y reserva.
+        </div>
+      </section>
+
+      <section class="quick-access">
+        <div class="quick-card">
+          <div>
+            <span>Herramientas autorizadas</span>
+            <strong id="activeToolsCount">0</strong>
+            <p id="activeToolsText">Cargando módulos disponibles...</p>
+          </div>
+        </div>
+
+        <div class="quick-card">
+          <div>
+            <span>Estado general</span>
+            <strong>Suite operativa</strong>
+            <p id="sessionText">Sesión segura activa mediante Amazon Cognito.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="tools-shell">
+        <div class="section-title">
+          <h3>Herramientas disponibles</h3>
+          <span>Seleccione una herramienta para ingresar</span>
+        </div>
+
+        <div class="tools-grid" id="toolsGrid"></div>
+      </section>
+
+    </main>
+
+    <footer>
+      Consultores Martín S.A.S. · Suite corporativa · Uso interno y usuarios autorizados
+    </footer>
+
+  </section>
+
+  <script>
+    const COGNITO_CONFIG = {
+  region: "us-east-2",
+  userPoolId: "us-east-2_tnNLtHKMi",
+  clientId: "1r2991rjh6glaa5r9l8r4sench",
+  domain: "https://us-east-2tnnlthkmi.auth.us-east-2.amazoncognito.com",
+  redirectUri: "https://suiteadmin.consultoresmartin.com/",
+  logoutUri: "https://suiteadmin.consultoresmartin.com/",
+  scopes: ["openid", "email", "profile"]
+};
+
+    /*
+      Cuando creemos API Gateway /me, pega aquí la URL.
+      Ejemplo:
+      const CORE_ME_ENDPOINT = "https://xxxx.execute-api.us-east-2.amazonaws.com/me";
+    */
+    const CORE_ME_ENDPOINT = "";
+
+    const STORAGE_KEYS = {
+      verifier: "cm_pkce_verifier",
+      state: "cm_oauth_state",
+      idToken: "cm_id_token",
+      accessToken: "cm_access_token",
+      refreshToken: "cm_refresh_token",
+      expiresAt: "cm_token_expires_at"
+    };
+
+
+    let pendingChallengeSession = null;
+    let pendingChallengeUsername = null;
+    let pendingForgotEmail = null;
+
+    const TOOLS = [
+      {
+        id: "vinculacion",
+        title: "Panel de vinculación",
+        icon: "📁",
+        wide: true,
+        description: "Consulta y gestión de contrapartes, formularios de vinculación, actualización, revisión de expedientes y exportación de bases.",
+        tags: ["SAGRILAFT", "PTEE"],
+        buttons: [
+          { label: "Ingresar al panel", url: "https://admin-vinculacion.consultoresmartin.com", type: "primary", desc: "Consultar y gestionar expedientes de terceros" },
+          { label: "Diligenciar formulario", url: "https://vinculacion.consultoresmartin.com", type: "secondary", desc: "Formulario de vinculación para el tercero" },
+          { label: "Formulario de debida diligencia", url: "https://debidadiligencia.consultoresmartin.com", type: "secondary", desc: "Ampliación de información del tercero" },
+          { label: "Formulario de subsanación", url: "https://subsanacion.consultoresmartin.com", type: "secondary", desc: "Cargar documentos pendientes por radicado" }
+        ]
+      },
+      {
+        id: "linea_etica",
+        title: "Panel Línea Ética",
+        icon: "🛡️",
+        description: "Gestión de reportes éticos, consulta por filtros, revisión de anexos, administración de estados y exportación en Excel.",
+        tags: ["Línea ética", "Reportes"],
+        buttons: [
+          { label: "Ingresar al panel", url: "https://admin-lineaetica.consultoresmartin.com", type: "primary" },
+          { label: "Diligenciar reporte", url: "https://lineaetica.consultoresmartin.com", type: "secondary" }
+        ]
+      },
+      {
+        id: "consulta_listas",
+        title: "Consulta en listas",
+        icon: "🔎",
+        description: "Validación preliminar de terceros en fuentes públicas, Procuraduría, Policía, Contraloría, Rama Judicial y noticias.",
+        tags: ["Debida diligencia", "Listas"],
+        buttons: [
+          { label: "Consultar listas", url: "https://consultoresmartinsas.github.io/CM-HerramientaConsultaListas/", type: "primary" }
+        ]
+      },
+      {
+  id: "scoring",
+  title: "Scoring de riesgo",
+  icon: "📊",
+  description: "Perfilamiento de contrapartes, cálculo de nivel de riesgo, segmentación y resultado de debida diligencia.",
+  tags: ["Perfilamiento", "Disponible"],
+  buttons: [
+    {
+      label: "Score de riesgo",
+      url: "https://scorerisk.consultoresmartin.com",
+      type: "primary"
+    }
+  ]
+},
+      {
+        id: "usuarios",
+        title: "Administración de usuarios",
+        icon: "👥",
+        description: "Creación de usuarios, activación, inactivación, roles, permisos, empresas y trazabilidad de cambios.",
+        tags: ["Core", "Administración"],
+        disabled: true,
+        buttons: [
+          { label: "Próximamente", url: "#", type: "primary" }
+        ]
+      },
+      {
+        id: "auditoria",
+        title: "Auditoría y logs",
+        icon: "🧾",
+        description: "Consulta de eventos de acceso, cambios administrativos, sesiones y trazabilidad de acciones críticas.",
+        tags: ["Seguridad", "Logs"],
+        disabled: true,
+        buttons: [
+          { label: "Próximamente", url: "#", type: "primary" }
+        ]
+      }
+    ];
+
+    function showAuthMessage(message, type = "error"){
+      const box = document.getElementById("authMessage");
+      box.className = `auth-message ${type}`;
+      box.textContent = message;
+    }
+
+    function setButtonLoading(buttonId, loading, loadingText = "Procesando..."){
+      const btn = document.getElementById(buttonId);
+      if (!btn) return;
+      if (loading) {
+        btn.dataset.originalText = btn.textContent;
+        btn.textContent = loadingText;
+        btn.disabled = true;
+        btn.style.opacity = ".75";
+      } else {
+        btn.textContent = btn.dataset.originalText || btn.textContent;
+        btn.disabled = false;
+        btn.style.opacity = "1";
+      }
+    }
+
+    function togglePassword(inputId, button){
+      const input = document.getElementById(inputId);
+      if (!input) return;
+      const isPassword = input.type === "password";
+      input.type = isPassword ? "text" : "password";
+      button.textContent = isPassword ? "Ocultar" : "Ver";
+    }
+
+    function showOnlyForm(formId){
+      ["loginForm", "newPasswordForm", "forgotPasswordForm", "confirmForgotPasswordForm"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.toggle("hidden", id !== formId);
+      });
+    }
+
+    function showLoginForm(){
+      showOnlyForm("loginForm");
+      showAuthMessage("Ingrese con su correo corporativo y contraseña.", "info");
+    }
+
+    function showForgotPassword(){
+      const currentEmail = document.getElementById("loginEmail")?.value || "";
+      document.getElementById("forgotEmail").value = currentEmail;
+      showOnlyForm("forgotPasswordForm");
+      showAuthMessage("Recuperación de contraseña. Ingrese su correo corporativo.", "info");
+    }
+
+    async function cognitoRequest(target, payload){
+      const res = await fetch(`https://cognito-idp.${COGNITO_CONFIG.region}.amazonaws.com/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-amz-json-1.1",
+          "X-Amz-Target": `AWSCognitoIdentityProviderService.${target}`
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const dataText = await res.text();
+      let data = {};
+      try {
+        data = dataText ? JSON.parse(dataText) : {};
+      } catch {
+        data = { message: dataText };
+      }
+
+      if (!res.ok) {
+        const errorName = data.__type || data.code || "Error";
+        const message = data.message || data.Message || "No fue posible completar la operación.";
+        throw new Error(translateCognitoError(errorName, message));
+      }
+
+      return data;
+    }
+
+    function translateCognitoError(errorName, message){
+      const raw = `${errorName} ${message}`;
+
+      if (raw.includes("NotAuthorizedException")) {
+        return "Correo o contraseña incorrectos. Verifique los datos e intente nuevamente.";
+      }
+
+      if (raw.includes("UserNotFoundException")) {
+        return "El usuario no existe o no está autorizado para ingresar.";
+      }
+
+      if (raw.includes("UserNotConfirmedException")) {
+        return "El usuario aún no está confirmado.";
+      }
+
+      if (raw.includes("PasswordResetRequiredException")) {
+        return "Debe restablecer la contraseña antes de ingresar.";
+      }
+
+      if (raw.includes("LimitExceededException") || raw.includes("TooManyRequestsException")) {
+        return "Se realizaron demasiados intentos. Espere unos minutos e intente nuevamente.";
+      }
+
+      if (raw.includes("InvalidPasswordException")) {
+        return "La contraseña no cumple la política de seguridad. Use mínimo 12 caracteres, mayúsculas, minúsculas, número y carácter especial.";
+      }
+
+      if (raw.includes("CodeMismatchException")) {
+        return "El código ingresado no es válido.";
+      }
+
+      if (raw.includes("ExpiredCodeException")) {
+        return "El código expiró. Solicite uno nuevo.";
+      }
+
+      return message || "No fue posible completar la operación.";
+    }
+
+    async function signInDirect(email, password){
+      const data = await cognitoRequest("InitiateAuth", {
+        AuthFlow: "USER_PASSWORD_AUTH",
+        ClientId: COGNITO_CONFIG.clientId,
+        AuthParameters: {
+          USERNAME: email,
+          PASSWORD: password
+        }
+      });
+
+      if (data.ChallengeName === "NEW_PASSWORD_REQUIRED") {
+        pendingChallengeSession = data.Session;
+        pendingChallengeUsername = email;
+        showOnlyForm("newPasswordForm");
+        showAuthMessage("Debe crear una nueva contraseña para continuar.", "info");
+        return;
+      }
+
+      if (data.ChallengeName) {
+        throw new Error(`Cognito solicitó un paso adicional no configurado todavía: ${data.ChallengeName}`);
+      }
+
+      if (!data.AuthenticationResult) {
+        throw new Error("Cognito no retornó una sesión válida.");
+      }
+
+      const tokens = normalizeAuthResult(data.AuthenticationResult);
+      saveTokens(tokens);
+      await showSuite(tokens);
+    }
+
+    async function completeNewPassword(newPassword){
+      if (!pendingChallengeSession || !pendingChallengeUsername) {
+        throw new Error("No hay una solicitud activa de cambio de contraseña. Intente iniciar sesión nuevamente.");
+      }
+
+      const data = await cognitoRequest("RespondToAuthChallenge", {
+        ClientId: COGNITO_CONFIG.clientId,
+        ChallengeName: "NEW_PASSWORD_REQUIRED",
+        Session: pendingChallengeSession,
+        ChallengeResponses: {
+          USERNAME: pendingChallengeUsername,
+          NEW_PASSWORD: newPassword
+        }
+      });
+
+      if (!data.AuthenticationResult) {
+        throw new Error("La contraseña fue actualizada, pero no se recibió una sesión válida. Inicie sesión nuevamente.");
+      }
+
+      pendingChallengeSession = null;
+      pendingChallengeUsername = null;
+
+      const tokens = normalizeAuthResult(data.AuthenticationResult);
+      saveTokens(tokens);
+      await showSuite(tokens);
+    }
+
+    async function forgotPassword(email){
+      await cognitoRequest("ForgotPassword", {
+        ClientId: COGNITO_CONFIG.clientId,
+        Username: email
+      });
+
+      pendingForgotEmail = email;
+      showOnlyForm("confirmForgotPasswordForm");
+      showAuthMessage("Se envió un código de recuperación al correo registrado.", "info");
+    }
+
+    async function confirmForgotPassword(code, newPassword){
+      if (!pendingForgotEmail) {
+        throw new Error("No hay un correo asociado a esta recuperación. Inicie nuevamente el proceso.");
+      }
+
+      await cognitoRequest("ConfirmForgotPassword", {
+        ClientId: COGNITO_CONFIG.clientId,
+        Username: pendingForgotEmail,
+        ConfirmationCode: code,
+        Password: newPassword
+      });
+
+      pendingForgotEmail = null;
+      showOnlyForm("loginForm");
+      showAuthMessage("Contraseña actualizada correctamente. Ahora puede iniciar sesión.", "info");
+    }
+
+    function normalizeAuthResult(result){
+      return {
+        id_token: result.IdToken,
+        access_token: result.AccessToken,
+        refresh_token: result.RefreshToken,
+        expires_in: result.ExpiresIn || 3600,
+        token_type: result.TokenType || "Bearer"
+      };
+    }
+
+    function saveTokens(tokens){
+      localStorage.setItem(STORAGE_KEYS.idToken, tokens.id_token || "");
+      localStorage.setItem(STORAGE_KEYS.accessToken, tokens.access_token || "");
+      localStorage.setItem(STORAGE_KEYS.refreshToken, tokens.refresh_token || "");
+
+      const expiresIn = Number(tokens.expires_in || 3600);
+      const expiresAt = Date.now() + (expiresIn * 1000);
+      localStorage.setItem(STORAGE_KEYS.expiresAt, String(expiresAt));
+
+      // Un login nuevo cancela cualquier señal de cierre previa (si no, la app
+      // te cerraría de inmediato al reingresar).
+      document.cookie = "cm_sesion_cerrada=; Domain=.consultoresmartin.com; Path=/; Max-Age=0; Secure; SameSite=Lax";
+
+      // Sesión única: se genera un identificador de sesión nuevo en cada login.
+      // Al registrarlo en el backend invalida cualquier sesión anterior del
+      // usuario (en este u otro equipo/región/país).
+      const sessionId = (self.crypto && crypto.randomUUID)
+        ? crypto.randomUUID()
+        : (Date.now() + "-" + Math.random().toString(36).slice(2));
+      localStorage.setItem("cm_session_id", sessionId);
+
+      sincronizarSesionConSubdominios();
+      registrarSesionActiva(sessionId, tokens.access_token || localStorage.getItem("cm_access_token") || "");
+    }
+
+    // Registra la sesión activa del usuario en el backend (single-session).
+    async function registrarSesionActiva(sessionId, accessToken) {
+      if (!sessionId || !accessToken) return;
+      try {
+        await fetch("https://l3xklo3sh0.execute-api.us-east-2.amazonaws.com/admin", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Authorization": "Bearer " + accessToken },
+          body: JSON.stringify({ accion: "registrarSesion", sessionId })
+        });
+      } catch (e) { /* si falla el registro, no se bloquea el ingreso */ }
+    }
+
+    function guardarCookieCompartida(nombre, valor, segundos = 3600) {
+      if (!valor) return;
+      document.cookie = `${nombre}=${encodeURIComponent(valor)}; Domain=.consultoresmartin.com; Path=/; Max-Age=${segundos}; Secure; SameSite=Lax`;
+    }
+
+    function sincronizarSesionConSubdominios() {
+      guardarCookieCompartida("cm_id_token", localStorage.getItem("cm_id_token") || "", 3600);
+      guardarCookieCompartida("cm_access_token", localStorage.getItem("cm_access_token") || "", 3600);
+      guardarCookieCompartida("cm_refresh_token", localStorage.getItem("cm_refresh_token") || "", 432000);
+      guardarCookieCompartida("cm_token_expires_at", localStorage.getItem("cm_token_expires_at") || "", 3600);
+      guardarCookieCompartida("cm_session_id", localStorage.getItem("cm_session_id") || "", 432000);
+    }
+
+    function obtenerSesionParaHerramienta() {
+      return {
+        cm_id_token: localStorage.getItem("cm_id_token") || "",
+        cm_access_token: localStorage.getItem("cm_access_token") || "",
+        cm_refresh_token: localStorage.getItem("cm_refresh_token") || "",
+        cm_token_expires_at: localStorage.getItem("cm_token_expires_at") || ""
+      };
+    }
+
+    function construirUrlHerramienta(urlBase) {
+      if (!urlBase || urlBase === "#") return "#";
+
+      try {
+        const url = new URL(urlBase);
+        const formulariosPublicos = new Set([
+          "pregel.consultoresmartin.com",
+          "vinculacion.consultoresmartin.com",
+          "lineaetica.consultoresmartin.com",
+          "debidadiligencia.consultoresmartin.com",
+          "subsanacion.consultoresmartin.com"
+        ]);
+
+        if (formulariosPublicos.has(url.hostname)) {
+          return `${url.origin}/`;
+        }
+
+        const sesion = obtenerSesionParaHerramienta();
+
+        if (url.hostname.endsWith(".consultoresmartin.com") && sesion.cm_id_token) {
+          const hash = new URLSearchParams();
+          hash.set("cm_session", "1");
+          Object.entries(sesion).forEach(([clave, valor]) => {
+            if (valor) hash.set(clave, valor);
+          });
+          url.hash = hash.toString();
+        }
+
+        return url.toString();
+      } catch (error) {
+        return urlBase;
+      }
+    }
+
+    function getStoredTokens(){
+      const idToken = localStorage.getItem(STORAGE_KEYS.idToken);
+      const accessToken = localStorage.getItem(STORAGE_KEYS.accessToken);
+      const refreshToken = localStorage.getItem(STORAGE_KEYS.refreshToken);
+      const expiresAt = Number(localStorage.getItem(STORAGE_KEYS.expiresAt) || 0);
+
+      if (!idToken || !accessToken) return null;
+      if (expiresAt && Date.now() > expiresAt) return null;
+
+      return { idToken, accessToken, refreshToken, expiresAt };
+    }
+
+    function decodeJwt(token){
+      const [, payload] = token.split(".");
+      if (!payload) return {};
+      const normalized = payload.replace(/-/g, "+").replace(/_/g, "/");
+      const json = decodeURIComponent(
+        atob(normalized)
+          .split("")
+          .map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+          .join("")
+      );
+      return JSON.parse(json);
+    }
+
+    async function loadCoreProfile(accessToken, claims){
+      if (!CORE_ME_ENDPOINT) {
+        return {
+          tenantId: "TENANT_CM",
+          empresaId: "EMPRESA_CM",
+          correo: claims.email || claims.username || "Usuario",
+          nombreCompleto: claims.name || claims.email || "Usuario autenticado",
+          rolId: (claims["cognito:groups"] || [])[0] || "CM_CONSULTA",
+          modulosPermitidos: getModulesFromClaims(claims)
+        };
+      }
+
+      const res = await fetch(CORE_ME_ENDPOINT, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+
+      if (!res.ok) {
+        throw new Error("No fue posible cargar el perfil desde el Core.");
+      }
+
+      return await res.json();
+    }
+
+    function getModulesFromClaims(claims){
+      const groups = claims["cognito:groups"] || [];
+
+      if (groups.includes("CM_SUPER_ADMIN")) {
+        return ["vinculacion", "linea_etica", "consulta_listas", "scoring", "usuarios", "configuracion", "auditoria", "logs"];
+      }
+
+      if (groups.includes("CM_TENANT_ADMIN") || groups.includes("CM_EMPRESA_ADMIN")) {
+        return ["vinculacion", "linea_etica", "consulta_listas", "usuarios", "auditoria"];
+      }
+
+      if (groups.includes("CM_AUDITOR")) {
+        return ["auditoria", "logs", "vinculacion", "linea_etica"];
+      }
+
+      return ["vinculacion", "consulta_listas"];
+    }
+
+    function obtenerGruposNormalizados(claims){
+      const gruposRaw = claims?.["cognito:groups"] || [];
+
+      const grupos = Array.isArray(gruposRaw)
+        ? gruposRaw
+        : String(gruposRaw)
+            .replace(/^\[/, "")
+            .replace(/\]$/, "")
+            .split(",");
+
+      return grupos
+        .map(grupo => String(grupo).trim().replace(/^["']|["']$/g, "").toUpperCase())
+        .filter(Boolean);
+    }
+
+    function configurarFormularioVinculacion(claims){
+      const grupos = obtenerGruposNormalizados(claims);
+
+      const esUsuarioCM = grupos.some(grupo => [
+        "CM_SUPER_ADMIN",
+        "CM_TENANT_ADMIN",
+        "CM_EMPRESA_ADMIN",
+        "CM_OFICIAL_CUMPLIMIENTO",
+        "CM_AUDITOR",
+        "CM_CONSULTA"
+      ].includes(grupo));
+
+      const esUsuarioPregel = !esUsuarioCM && grupos.some(grupo => [
+        "PREGEL_CONSULTA",
+        "PREGEL_DESCARGA",
+        "PREGEL_ADMIN"
+      ].includes(grupo));
+
+      const urlFormulario = esUsuarioPregel
+        ? "https://pregel.consultoresmartin.com/"
+        : "https://vinculacion.consultoresmartin.com/";
+
+      const herramienta = TOOLS.find(tool => tool.id === "vinculacion");
+      const botonFormulario = herramienta?.buttons?.find(
+        button => button.label === "Diligenciar formulario"
+      );
+
+      if (botonFormulario) {
+        botonFormulario.url = urlFormulario;
+      }
+    }
+
+    function renderTools(allowedModules){
+      const grid = document.getElementById("toolsGrid");
+      grid.innerHTML = "";
+
+      const allowed = new Set(allowedModules || []);
+      const visibleTools = TOOLS.filter(tool => allowed.has(tool.id));
+
+      visibleTools.forEach(tool => {
+        const article = document.createElement("article");
+        article.className = `tool-card ${tool.disabled ? "disabled" : ""} ${tool.wide ? "wide" : ""}`;
+
+        const tags = tool.tags.map(tag => `<span class="tag">${tag}</span>`).join("");
+        const buttons = tool.buttons.map(button => `
+          <a class="enter-btn ${button.type === "secondary" ? "secondary" : ""} ${button.desc ? "has-desc" : ""}"
+             href="${construirUrlHerramienta(button.url)}"
+             target="_blank"
+             rel="noopener noreferrer">
+            <span class="btn-label">${button.label}</span>
+            ${button.desc ? `<span class="btn-desc">${button.desc}</span>` : ""}
+          </a>
+        `).join("");
+
+        article.innerHTML = `
+          <div>
+            <div class="tool-image">
+              <div class="tool-symbol">${tool.icon}</div>
+            </div>
+            <h4>${tool.title}</h4>
+            <p>${tool.description}</p>
+            <div class="tool-meta">${tags}</div>
+          </div>
+          <div class="buttons">${buttons}</div>
+        `;
+
+        grid.appendChild(article);
+      });
+
+      document.getElementById("activeToolsCount").textContent = String(visibleTools.length);
+      document.getElementById("activeToolsText").textContent =
+        visibleTools.length
+          ? visibleTools.map(t => t.title).join(", ") + "."
+          : "No hay módulos autorizados para este usuario.";
+    }
+
+    function obtenerModulosVisibles(profile, claims){
+      const correo = String(
+        profile?.correo || claims?.email || claims?.username || ""
+      ).trim().toLowerCase();
+
+      const modulos = new Set(profile?.modulosPermitidos || []);
+
+      if (correo === "ti@consultoresmartin.com") {
+        modulos.delete("consulta_listas");
+        modulos.add("linea_etica");
+      }
+
+      return Array.from(modulos);
+    }
+
+    async function showSuite(tokens){
+  const idToken = tokens.idToken || tokens.id_token;
+  const accessToken = tokens.accessToken || tokens.access_token;
+
+  if (!idToken || !accessToken) {
+    throw new Error("No se recibieron tokens válidos desde Cognito. Limpia sesión e intenta nuevamente.");
+  }
+
+  const claims = decodeJwt(idToken);
+  configurarFormularioVinculacion(claims);
+  const profile = await loadCoreProfile(accessToken, claims);
+
+  document.getElementById("loginView").style.display = "none";
+  document.getElementById("suiteView").style.display = "block";
+
+  document.getElementById("userIdentity").textContent =
+    `${profile.nombreCompleto || profile.correo} · ${profile.rolId || "Usuario"}`;
+
+  document.getElementById("sessionText").textContent =
+    `Tenant: ${profile.tenantId || "TENANT_CM"} · Empresa: ${profile.empresaId || "EMPRESA_CM"}`;
+
+  renderTools(obtenerModulosVisibles(profile, claims));
+  iniciarHeartbeatSuite();
+}
+
+    // Latido de sesión única para la suite: si el usuario inicia sesión en otro
+    // equipo, esta pantalla lo detecta en ~8 s y cae al login automáticamente.
+    let _hbSuite = null;
+    function detenerHeartbeatSuite(){ if (_hbSuite) { clearInterval(_hbSuite); _hbSuite = null; } }
+    function iniciarHeartbeatSuite(){
+      if (_hbSuite) return;
+      const rev = async () => {
+        const at = localStorage.getItem("cm_access_token");
+        const sid = localStorage.getItem("cm_session_id");
+        if (!at || !sid) return;
+        try {
+          const r = await fetch("https://l3xklo3sh0.execute-api.us-east-2.amazonaws.com/admin", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Authorization": "Bearer " + at },
+            body: JSON.stringify({ accion: "pingSesion", sessionId: sid })
+          });
+          if (r.status === 401) {
+            const t = await r.text();
+            if (t.includes("SESION_INVALIDA")) sesionDesplazadaSuite();
+          }
+        } catch (e) { /* fallos de red no cierran sesión */ }
+      };
+      _hbSuite = setInterval(rev, 8000);
+      document.addEventListener("visibilitychange", () => { if (!document.hidden) rev(); });
+      window.addEventListener("focus", rev);
+      rev();
+    }
+    function sesionDesplazadaSuite(){
+      detenerHeartbeatSuite();
+      Object.values(STORAGE_KEYS).forEach(k => { localStorage.removeItem(k); sessionStorage.removeItem(k); });
+      localStorage.removeItem("cm_session_id"); sessionStorage.removeItem("cm_session_id");
+      ["cm_id_token","cm_access_token","cm_refresh_token","cm_token_expires_at","cm_session_id"].forEach(borrarCookieCompartida);
+      document.getElementById("suiteView").style.display = "none";
+      document.getElementById("loginView").style.display = "flex";
+      showOnlyForm("loginForm");
+      showAuthMessage("Tu sesión se cerró porque se inició sesión con este usuario en otro dispositivo.", "info");
+    }
+
+    function clearLocalSession(){
+      Object.values(STORAGE_KEYS).forEach(key => {
+        localStorage.removeItem(key);
+        sessionStorage.removeItem(key);
+      });
+
+      [
+        "cm_id_token",
+        "cm_access_token",
+        "cm_refresh_token",
+        "cm_token_expires_at"
+      ].forEach(borrarCookieCompartida);
+
+      showAuthMessage("Sesión local limpiada. Ahora puedes iniciar nuevamente.", "info");
+    }
+
+    function borrarCookieCompartida(nombre) {
+  document.cookie = `${nombre}=; Domain=.consultoresmartin.com; Path=/; Max-Age=0; Secure; SameSite=Lax`;
+}
+
+async function logoutSuite(){
+  // Cierre GLOBAL en Cognito: revoca los refresh tokens del usuario en TODOS
+  // los dispositivos/regiones (ninguna sesión podrá renovarse).
+  const accessToken = localStorage.getItem("cm_access_token") || "";
+  if (accessToken) {
+    try { await cognitoRequest("GlobalSignOut", { AccessToken: accessToken }); }
+    catch (e) { /* continúa el cierre local aunque falle la revocación */ }
+  }
+
+  clearLocalSession();
+  localStorage.removeItem("cm_session_id");
+  sessionStorage.removeItem("cm_session_id");
+
+  [
+    "cm_id_token",
+    "cm_access_token",
+    "cm_refresh_token",
+    "cm_token_expires_at",
+    "cm_session_id"
+  ].forEach(borrarCookieCompartida);
+
+  // Señal compartida de cierre: todas las apps de la suite la detectan al
+  // cargar (o en su chequeo periódico) y cierran su propia sesión.
+  document.cookie = "cm_sesion_cerrada=" + Date.now() + "; Domain=.consultoresmartin.com; Path=/; Max-Age=86400; Secure; SameSite=Lax";
+
+  document.getElementById("suiteView").style.display = "none";
+  document.getElementById("loginView").style.display = "flex";
+  showOnlyForm("loginForm");
+  showAuthMessage("Sesión cerrada correctamente.", "info");
+}
+
+    function bindLoginEvents(){
+      document.getElementById("loginForm")?.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const email = document.getElementById("loginEmail").value.trim().toLowerCase();
+        const password = document.getElementById("loginPassword").value;
+
+        if (!email || !password) {
+          showAuthMessage("Ingrese correo electrónico y contraseña.");
+          return;
+        }
+
+        try {
+          setButtonLoading("loginButton", true, "Validando...");
+          showAuthMessage("Validando credenciales de acceso...", "info");
+          await signInDirect(email, password);
+        } catch (error) {
+          console.error("LOGIN_ERROR", error);
+          showAuthMessage(error.message || "No fue posible iniciar sesión.");
+        } finally {
+          setButtonLoading("loginButton", false);
+        }
+      });
+
+      document.getElementById("newPasswordForm")?.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const newPassword = document.getElementById("newPassword").value;
+
+        if (!newPassword) {
+          showAuthMessage("Ingrese la nueva contraseña.");
+          return;
+        }
+
+        try {
+          setButtonLoading("newPasswordButton", true, "Guardando...");
+          await completeNewPassword(newPassword);
+        } catch (error) {
+          console.error("NEW_PASSWORD_ERROR", error);
+          showAuthMessage(error.message || "No fue posible actualizar la contraseña.");
+        } finally {
+          setButtonLoading("newPasswordButton", false);
+        }
+      });
+
+      document.getElementById("forgotPasswordForm")?.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const email = document.getElementById("forgotEmail").value.trim().toLowerCase();
+
+        if (!email) {
+          showAuthMessage("Ingrese el correo electrónico.");
+          return;
+        }
+
+        try {
+          showAuthMessage("Enviando código de recuperación...", "info");
+          await forgotPassword(email);
+        } catch (error) {
+          console.error("FORGOT_PASSWORD_ERROR", error);
+          showAuthMessage(error.message || "No fue posible enviar el código.");
+        }
+      });
+
+      document.getElementById("confirmForgotPasswordForm")?.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const code = document.getElementById("forgotCode").value.trim();
+        const newPassword = document.getElementById("forgotNewPassword").value;
+
+        if (!code || !newPassword) {
+          showAuthMessage("Ingrese el código y la nueva contraseña.");
+          return;
+        }
+
+        try {
+          showAuthMessage("Actualizando contraseña...", "info");
+          await confirmForgotPassword(code, newPassword);
+        } catch (error) {
+          console.error("CONFIRM_FORGOT_PASSWORD_ERROR", error);
+          showAuthMessage(error.message || "No fue posible cambiar la contraseña.");
+        }
+      });
+    }
+
+    async function initAuth(){
+      bindLoginEvents();
+
+      try {
+        const tokens = getStoredTokens();
+
+        if (tokens) {
+          await showSuite(tokens);
+          return;
+        }
+
+        document.getElementById("loginView").style.display = "flex";
+        document.getElementById("suiteView").style.display = "none";
+        showOnlyForm("loginForm");
+
+      } catch (error) {
+        console.error("AUTH_ERROR", error);
+        clearLocalSession();
+        document.getElementById("loginView").style.display = "flex";
+        document.getElementById("suiteView").style.display = "none";
+        showOnlyForm("loginForm");
+        showAuthMessage(error.message || "No fue posible iniciar sesión.");
+      }
+    }
+
+    initAuth();
+  </script>
+
+
+
+</body><div id="codex-browser-sidebar-comments-root" style="position: fixed; inset: 0px; pointer-events: none; z-index: 2147483647;"></div></html>
